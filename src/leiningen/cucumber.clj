@@ -1,8 +1,9 @@
 (ns leiningen.cucumber
-  (:use [clojure.java.io])
-  (:use [leiningen.core.eval :only [eval-in-project]])
-  (:require [leiningen.core.project :as project])
-  (:import [cucumber.runtime RuntimeOptions]))
+  (:require [clojure.java.io :refer [file]]
+            [leiningen.core.eval :refer [eval-in-project]]
+            [leiningen.core.project :as project])
+  (:import [java.util Properties]
+           [cucumber.runtime RuntimeOptions]))
 
 (defn- configure-feature-paths [runtime-options feature-paths]
   (when (.. runtime-options featurePaths (isEmpty))
@@ -15,7 +16,7 @@
       (.. runtime-options glue (addAll glue-paths)))))
 
 (defn create-partial-runtime-options [{:keys [cucumber-feature-paths target-path cucumber-glue-paths] :or {cucumber-feature-paths ["features"]}} args]
-  (let [runtime-options (RuntimeOptions. (java.util.Properties.) (into-array String args))]
+  (let [runtime-options (RuntimeOptions. (Properties.) (into-array String args))]
     (configure-feature-paths runtime-options cucumber-feature-paths)
     (configure-glue-paths runtime-options cucumber-glue-paths (.featurePaths runtime-options))
     runtime-options))
