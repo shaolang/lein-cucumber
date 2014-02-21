@@ -19,7 +19,12 @@
 
 (defn- project-configuration
   ([] '(defproject test-project "0.1.0"
-         :description "A test project"))
+         :description "A test project"
+         :profiles
+            {:dev {:dependencies
+                    [[org.clojure/clojure "1.5.1"]
+                     [info.cukes/cucumber-clojure "1.1.6-SNAPSHOT"]]
+                   :plugins [[lein-cucumber "1.0.3-SNAPSHOT"]]}}))
   ([parameters]
      (seq (concat (project-configuration) parameters))))
 
