@@ -6,9 +6,19 @@ This is a leiningen plugin for use with [cucumber-jvm](https://github.com/cucumb
 
 ## Usage
 
-1. Add `[lein-cucumber "1.0.2"]` to `:plugins` in your project.clj
-2. Run `lein deps` to fetch all dependencies.
-3. Run all Cucumber features with `lein cucumber`
+1. Add `[lein-cucumber "1.0.3-SNAPSHOT"]` to `:plugins` in your project.clj
+2. Add `[info.cukes/cucumber-clojure "1.1.6-SNAPSHOT"]` to `:dependencies` in
+   your project.clj
+3. Run `lein deps` to fetch all dependencies.
+4. Run all Cucumber features with `lein cucumber`
+
+## Warning!
+
+This bleeding edge version depends on the unreleased version of cucumber-clojure
+which contains a [critical fix](https://github.com/cucumber/cucumber-jvm/pull/650)
+necessary for cucumber-clojure to run--with or without lein-cucumber.
+
+This version currently does not pass all the cucumber tests.
 
 ## Please note
 
