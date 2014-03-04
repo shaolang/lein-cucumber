@@ -6,7 +6,7 @@ This is a leiningen plugin for use with [cucumber-jvm](https://github.com/cucumb
 
 ## Usage
 
-1. Add `[lein-cucumber "2.0.0-RC1"]` to `:plugins` in your project.clj
+1. Add `[lein-cucumber "2.0.0-SNAPSHOT"]` to `:plugins` in your project.clj
 2. Add `[info.cukes/cucumber-clojure "1.1.6-SNAPSHOT"]` to `:dependencies` in
    your project.clj
 3. Run `lein deps` to fetch all dependencies.
