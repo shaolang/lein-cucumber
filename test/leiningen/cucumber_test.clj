@@ -34,10 +34,7 @@
       (annotate-args args-given)        => annotated-args
       (glue-paths include-project-config)    => ["--glue" "features/step_definitions"
                                             "--glue" "bar_steps"]
-      (feature-paths include-project-config) => ["features", "foo", "test/features"]
-      (others include-project-config)   => ["--format" "pretty"
-                                            "--no-strict"
-                                            "--dotcucumber" "cucumber.yml"])))
+      (feature-paths include-project-config) => ["features", "foo", "test/features"])))
 
 (facts
   (annotate-args [])
@@ -74,11 +71,3 @@
 
   (feature-paths nil)
   => ["features"])
-
-
-(facts "handling of other arguments given"
-       (others {:others nil})
-       => nil
-
-       (others {:others ["--no-strict" "--format" "pretty"]})
-       => ["--no-strict" "--format" "pretty"])

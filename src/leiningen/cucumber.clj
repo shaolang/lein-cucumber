@@ -60,13 +60,11 @@
                 :else          (map #(str % "/step_definitions")
                                     (feature-paths args)))))
 
-(defn others [{:keys [others]}] others)
-
 (defn config-plugin [project args]
   (-> args
     annotate-args
     (update-in [:features] concat (:cucumber-feature-paths project))
-    ((juxt feature-paths glue-paths others))
+    ((juxt feature-paths glue-paths :others))
     concat
     flatten
     ((partial remove nil?))))
