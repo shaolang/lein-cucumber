@@ -7,26 +7,20 @@
                       :glues ["features/step_definitions" "bar_steps"]
                       :others ["--format" "pretty"
                                "--no-strict"
-                               "--dotcucumber" "cucumber.yml"]}
-      include-project-config (update-in annotated-args
-                                        [:features]
-                                        conj
-                                        "test/features")]
-
+                               "--dotcucumber" "cucumber.yml"]}]
   (fact
     (config-plugin project-config annotated-args)
     => ["features"
         "foo"
-        "test/features"
         "--glue"        "features/step_definitions"
         "--glue"        "bar_steps"
         "--format"      "pretty"
         "--no-strict"
         "--dotcucumber" "cucumber.yml"]
     (provided
-      (glue-paths include-project-config)    => ["--glue" "features/step_definitions"
+      (glue-paths annotated-args)    => ["--glue" "features/step_definitions"
                                             "--glue" "bar_steps"]
-      (feature-paths include-project-config) => ["features", "foo", "test/features"])))
+      (feature-paths annotated-args) => ["features", "foo"])))
 
 (facts
   (annotate-args [])

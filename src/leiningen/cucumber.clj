@@ -60,9 +60,14 @@
                 :else          (map #(str % "/step_definitions")
                                     (feature-paths args)))))
 
+(defn add-project-features-if-not-given [project {:keys [features] :as args}]
+  (if features
+    args
+    (assoc args :features (:cucumber-feature-paths project))))
+
 (defn config-plugin [project args]
-  (-> args
-    (update-in [:features] concat (:cucumber-feature-paths project))
+  (->> args
+    (add-project-features-if-not-given project)
     ((juxt feature-paths glue-paths :others))
     concat
     flatten
