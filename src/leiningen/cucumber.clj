@@ -62,7 +62,6 @@
 
 (defn config-plugin [project args]
   (-> args
-    annotate-args
     (update-in [:features] concat (:cucumber-feature-paths project))
     ((juxt feature-paths glue-paths :others))
     concat
@@ -71,12 +70,14 @@
 
 (defn cucumber
   [project & args]
-  (let [cuke-args (vec (config-plugin project args))
+  (let [arg-groups (annotate-args args)
+        cuke-args (vec (config-plugin project arg-groups))
         glues (->> cuke-args
                 (drop-while #(not (.startsWith % "-")))
                 (partition 2)
                 (take-while #(= (first %) "--glue"))
                 (map fnext))]
+    (println arg-groups)
     (eval-in-project
       (update-in project [:source-paths] concat glues)
       `(Main/main (into-array String ~cuke-args)))))

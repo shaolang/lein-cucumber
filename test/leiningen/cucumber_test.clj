@@ -3,13 +3,6 @@
             [leiningen.cucumber :refer :all]))
 
 (let [project-config {:cucumber-feature-paths ["test/features"]}
-      args-given     ["--glue"       "features/step_definitions"
-                      "features"
-                      "--format"     "pretty"
-                      "foo"
-                      "--no-strict"
-                      "--g"          "bar_steps"
-                      "--dotcucmber" "cucumber.yml"]
       annotated-args {:features ["features" "foo"]
                       :glues ["features/step_definitions" "bar_steps"]
                       :others ["--format" "pretty"
@@ -21,7 +14,7 @@
                                         "test/features")]
 
   (fact
-    (config-plugin project-config args-given)
+    (config-plugin project-config annotated-args)
     => ["features"
         "foo"
         "test/features"
@@ -31,7 +24,6 @@
         "--no-strict"
         "--dotcucumber" "cucumber.yml"]
     (provided
-      (annotate-args args-given)        => annotated-args
       (glue-paths include-project-config)    => ["--glue" "features/step_definitions"
                                             "--glue" "bar_steps"]
       (feature-paths include-project-config) => ["features", "foo", "test/features"])))
