@@ -18,8 +18,6 @@ This bleeding edge version depends on the unreleased version of cucumber-clojure
 which contains a [critical fix](https://github.com/cucumber/cucumber-jvm/pull/650)
 necessary for cucumber-clojure to run--with or without lein-cucumber.
 
-This version currently does not pass all the cucumber tests.
-
 ## Please note
 
 lein-cucumber requires Leiningen 2.
