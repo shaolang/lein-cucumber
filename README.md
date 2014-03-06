@@ -12,11 +12,14 @@ This is a leiningen plugin for use with [cucumber-jvm](https://github.com/cucumb
 3. Run `lein deps` to fetch all dependencies.
 4. Run all Cucumber features with `lein cucumber`
 
-## Warning!
+The following cucumber-clojure are supported:
 
-This bleeding edge version depends on the unreleased version of cucumber-clojure
-which contains a [critical fix](https://github.com/cucumber/cucumber-jvm/pull/650)
-necessary for cucumber-clojure to run--with or without lein-cucumber.
+1. 1.1.1
+1. 1.1.2
+1. 1.1.3
+1. 1.1.4
+1. 1.1.5
+1. 1.1.6-SNAPSHOT
 
 ## Please note
 
