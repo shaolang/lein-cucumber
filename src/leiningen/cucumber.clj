@@ -74,11 +74,12 @@
 
 (defn cucumber
   [project & args]
-  (let [arg-maps (->> args
-                   group-args
-                   (include-project-config-for-missing-configs project)
-                   include-plugin-defaults-for-missing-configs)
-        cli-args (group-args->cli-args arg-maps)]
-    (eval-in-project
-      (update-in project [:source-paths] concat (:glues arg-maps))
-      `(Main/main (into-array String ~cli-args)))))
+  (binding [leiningen.core.main/*exit-process?* true]
+    (let [arg-maps (->> args
+                     group-args
+                     (include-project-config-for-missing-configs project)
+                     include-plugin-defaults-for-missing-configs)
+          cli-args (group-args->cli-args arg-maps)]
+      (eval-in-project
+        (update-in project [:source-paths] concat (:glues arg-maps))
+        `(Main/main (into-array String ~cli-args))))))
