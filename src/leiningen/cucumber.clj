@@ -65,6 +65,22 @@
     args
     (assoc args :features (:cucumber-feature-paths project))))
 
+(defn include-project-config-for-missing-features
+  [{:keys [cucumber-feature-paths]} {:keys [features] :as args-map}]
+  (if (seq features)
+    args-map
+    (assoc args-map :features cucumber-feature-paths)))
+
+(defn include-plugin-defaults-for-missing-configs
+  [{:keys [features glues others]}]
+  (let [final-features (if (seq features) features ["features"])
+        final-glues (if (seq glues)
+                      glues
+                      (map #(str % "/step_definitions") final-features))]
+    {:features final-features
+     :glues final-glues
+     :others others}))
+
 (defn config-plugin [project args]
   (->> args
     (add-project-features-if-not-given project)
@@ -72,6 +88,14 @@
     concat
     flatten
     ((partial remove nil?))))
+
+(defn group-args->cli-args [group-args]
+  (->> group-args
+    ((juxt :features
+           #(interleave (repeat "--glue") (:glues %))
+           :others))
+    concat
+    flatten))
 
 (defn cucumber
   [project & args]
