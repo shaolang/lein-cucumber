@@ -1,8 +1,7 @@
 (ns leiningen.cucumber
   (:require [clojure.java.io :refer [file]]
             [clojure.string :refer [lower-case]]
-            [leiningen.core.eval :refer [eval-in-project]])
-  (:import [cucumber.api.cli Main]))
+            [leiningen.core.eval :refer [eval-in-project]]))
 
 (defn lower-case-option [arg]
   (if (.startsWith arg "-") (lower-case arg) arg))
@@ -85,4 +84,5 @@
                     "\nLooking for glue in: " (vec (:glues arg-maps))))
       (eval-in-project
         (update-in project [:source-paths] concat (:glues arg-maps))
-        `(Main/main (into-array String ~cli-args))))))
+        `(Main/main (into-array String ~cli-args))
+        '(import [cucumber.api.cli Main])))))
