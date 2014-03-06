@@ -35,7 +35,7 @@
                              category
                              :others)))
 
-(defn annotate-args [args]
+(defn group-args [args]
   (->> args
     (map lower-case-option)
     (map categorize-option)
@@ -75,14 +75,13 @@
 
 (defn cucumber
   [project & args]
-  (let [arg-groups (annotate-args args)
+  (let [arg-groups (group-args args)
         cuke-args (vec (config-plugin project arg-groups))
         glues (->> cuke-args
                 (drop-while #(not (.startsWith % "-")))
                 (partition 2)
                 (take-while #(= (first %) "--glue"))
                 (map fnext))]
-    (println arg-groups)
     (eval-in-project
       (update-in project [:source-paths] concat glues)
       `(Main/main (into-array String ~cuke-args)))))

@@ -23,19 +23,19 @@
       (feature-paths annotated-args) => ["features", "foo"])))
 
 (facts
-  (annotate-args [])
+  (group-args [])
   => {:features nil, :glues nil, :others nil}
 
-  (annotate-args ["--GLUE" "FOO"])
+  (group-args ["--GLUE" "FOO"])
   => {:features nil, :glues ["FOO"], :others nil}
 
-  (annotate-args ["--dotcucumber" "cucumber.yml"])
+  (group-args ["--dotcucumber" "cucumber.yml"])
   => {:features nil, :glues nil, :others ["--dotcucumber" "cucumber.yml"]}
 
-  (annotate-args ["features"])
+  (group-args ["features"])
   => {:features ["features"], :glues nil, :others nil}
 
-  (annotate-args ["--no-strict"])
+  (group-args ["--no-strict"])
   => {:features nil, :glues nil, :others ["--no-strict"]})
 
 (facts
