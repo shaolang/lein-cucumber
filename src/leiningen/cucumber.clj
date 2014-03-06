@@ -80,6 +80,9 @@
                      (include-project-config-for-missing-configs project)
                      include-plugin-defaults-for-missing-configs)
           cli-args (group-args->cli-args arg-maps)]
+      (println (str "Running cucumber...\n"
+                    "Looking for features in: " (:features arg-maps)
+                    "\nLooking for glue in: " (vec (:glues arg-maps))))
       (eval-in-project
         (update-in project [:source-paths] concat (:glues arg-maps))
         `(Main/main (into-array String ~cli-args))))))
