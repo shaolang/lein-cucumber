@@ -16,11 +16,12 @@
       (.. runtime-options getFeaturePaths (addAll feature-paths)))
     (when (.. runtime-options getGlue (isEmpty))
       (.. runtime-options getGlue (addAll glue-paths)))
-    (doto (.getFormatters runtime-options)
-      (.add (.create formatter-factory (str "pretty:"
-                                            (.getAbsolutePath (file target-path
-                                                                    "test-reports"
-                                                                    "cucumber.out"))))))
+    (.addFormatter runtime-options
+                   (.create formatter-factory
+                            (str "pretty:"
+                                 (.getAbsolutePath (file target-path
+                                                         "test-reports"
+                                                         "cucumber.out")))))
     runtime-options))
 
 (defn- create-runtime [runtime-options]
