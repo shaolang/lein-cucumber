@@ -23,8 +23,8 @@
          :profiles
             {:dev {:dependencies
                     [[org.clojure/clojure "1.5.1"]
-                     [info.cukes/cucumber-clojure "1.1.6-SNAPSHOT"]]
-                   :plugins [[lein-cucumber "1.0.3-SNAPSHOT"]]}}))
+                     [info.cukes/cucumber-clojure "1.1.7-SNAPSHOT"]]
+                   :plugins [[lein-cucumber "2.0.0-SNAPSHOT"]]}}))
   ([parameters]
      (seq (concat (project-configuration) parameters))))
 
